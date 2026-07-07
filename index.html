@@ -1442,7 +1442,7 @@ function renderOnline(){
   if(!A) return;
   loadFbCfg();
   if(OL.err === 'sdk'){
-    A.innerHTML = `<div class="ol-note" style="border-color:var(--qi)">⚠️ 無法載入連線元件。如果你是從 claude.ai 的網頁開啟，這個環境不允許對外連線——請改用資料夾裡的 <b>做我的情緒偵探-數位版.html</b>（直接開啟或部署到自己的網址），就能使用線上房間。</div>`;
+    A.innerHTML = `<div class="ol-note" style="border-color:var(--qi)">⚠️ 這個環境無法對外連線（或網路暫時不通）。請改用正式版網址開啟，就能使用線上房間：<br><b><a href="https://ian3738.github.io/feelings-sherlock/" style="color:var(--brass)">ian3738.github.io/feelings-sherlock</a></b></div>`;
     OL.err = '';
     return;
   }
