@@ -642,9 +642,6 @@ body{
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5h11A1.5 1.5 0 0 1 19 5v14a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 5 19V5a1.5 1.5 0 0 1 1.5-1.5z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.6 3.5v17" stroke="currentColor" stroke-width="2"/><path d="M12 8.4h3.4M12 12h3.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
       </button>
       <button class="iconbtn" onclick="openModal('m-help')" title="玩法說明" aria-label="玩法說明"><span class="q">?</span></button>
-      <button class="iconbtn" onclick="openFbSetup()" title="連線設定" aria-label="連線設定">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.1" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3v2.6M12 18.4V21M21 12h-2.6M5.6 12H3M18.4 5.6l-1.9 1.9M7.5 16.5l-1.9 1.9M18.4 18.4l-1.9-1.9M7.5 7.5L5.6 5.6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-      </button>
     </nav>
   </header>
 
@@ -712,7 +709,6 @@ body{
       <div class="homefoot">
         <button class="chipbtn dark" onclick="openModal('m-help')">❓ 玩法說明</button>
         <button class="chipbtn dark" onclick="openHistory()">📓 案件簿</button>
-        <button class="chipbtn dark" onclick="openFbSetup()">⚙️ 連線設定</button>
       </div>
     </section>
 
@@ -844,7 +840,7 @@ body{
     <h4>🎬 表演猜猜樂（同樂模式，一台裝置）</h4>
     <p>2～8 人輪流當「情緒演員」：翻牌後只有演員能看，在 60 秒內用表情和動作演出卡片上的情緒（不能說話、不能說出字），其他人搶答。猜對按「猜對了」馬上換下一張，累積分數最高的人就是最佳情緒偵探！</p>
     <h4>🌐 線上房間・同感偵探（2–4 人，各自的裝置）</h4>
-    <p>每位玩家用自己的手機或平板進入房間。每回合抽一張情境卡，輪流當「主角」——主角誠實選出自己的感覺，其他偵探猜主角選了哪張卡：猜中一模一樣 +2 分、猜中同一個情緒家族 +1 分。揭曉後別忘了聊聊：「為什麼主角會有這種感覺？」（第一次使用需在「連線設定」貼上 Firebase 設定，詳見設定指南。）</p>
+    <p>每位玩家用自己的手機或平板打開遊戲網址：一個人「建立新房間」拿到 4 位房號，其他人輸入房號加入。每回合抽一張情境卡，輪流當「主角」——主角誠實選出自己的感覺，其他偵探猜主角選了哪張卡：猜中一模一樣 +2 分、猜中同一個情緒家族 +1 分。揭曉後別忘了聊聊：「為什麼主角會有這種感覺？」</p>
     <h4>🌡️ 心情溫度計 &amp; 🗺️ 情緒地圖</h4>
     <p>溫度計適合每日心情簽到；情緒地圖幫助孩子理解感覺有「舒不舒服」與「激動或平靜」兩個方向。</p>
     <p class="note">本頁為輔助教學用的數位工具，卡片架構參考《做我的情緒偵探（Feelings Sherlock）》實體牌卡（版權屬原出版者所有），插圖以表情符號重新設計。請搭配正版實體卡於個人或班級內使用，勿散布或作商業用途。</p>
@@ -855,35 +851,6 @@ body{
   <div class="mbox">
     <button class="mclose" onclick="closeModal('m-card')">✕</button>
     <div class="detailcard" id="carddetail"></div>
-  </div>
-</div>
-
-<div class="modal" id="m-fbsetup" onclick="if(event.target===this)closeModal('m-fbsetup')">
-  <div class="mbox">
-    <button class="mclose" onclick="closeModal('m-fbsetup')">✕</button>
-    <h3>⚙️ 線上連線設定（Firebase）</h3>
-    <p>線上房間需要一個免費的 Firebase 資料庫當「後台」。只要設定一次，之後所有裝置貼上同一組設定就能一起玩。</p>
-    <ol class="steps">
-      <li>用 Google 帳號到 <code>console.firebase.google.com</code> →「建立專案」（名稱隨意，Analytics 可關閉）。</li>
-      <li>左側選單「建構 Build」→「Realtime Database」→「建立資料庫」→ 地區選 <code>asia-southeast1</code>（新加坡）→ 以「測試模式」啟動。</li>
-      <li>回到「專案總覽」→ 點「&lt;/&gt; 網頁」新增 Web 應用程式（名稱隨意）→ 註冊後會看到 <code>firebaseConfig = { ... }</code>。</li>
-      <li>把大括號 <code>{ ... }</code> 整段複製，貼到下面的框框，按「儲存設定」。</li>
-      <li>把這份 HTML 檔（或部署後的網址）分享給其他玩家，每台裝置貼同一組設定即可連線。</li>
-    </ol>
-    <h4>貼上你的 firebaseConfig：</h4>
-    <textarea class="cfgbox" id="fbcfg" placeholder='{
-  "apiKey": "AIza...",
-  "authDomain": "xxx.firebaseapp.com",
-  "databaseURL": "https://xxx-default-rtdb.asia-southeast1.firebasedatabase.app",
-  "projectId": "xxx",
-  ...
-}'></textarea>
-    <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap">
-      <button class="btn primary small" onclick="saveFbCfg()">💾 儲存設定</button>
-      <button class="btn ghost small" onclick="clearFbCfg()">🗑 清除設定</button>
-      <span id="fbstatus" style="align-self:center;font-size:13.5px;font-weight:700"></span>
-    </div>
-    <p class="note">「測試模式」的資料庫任何知道網址的人都能讀寫，適合班級與家庭試玩。正式上架前建議開啟匿名登入並鎖定安全規則（規則範例已附在資料夾的設定指南裡）。</p>
   </div>
 </div>
 
@@ -1465,34 +1432,6 @@ function loadFbCfg(){
   if(!OL.cfg && window.FIREBASE_CONFIG) OL.cfg = window.FIREBASE_CONFIG;
   return OL.cfg;
 }
-function parseCfgText(t){
-  t = t.trim().replace(/^const\s+firebaseConfig\s*=\s*/,'').replace(/;\s*$/,'');
-  try{ return JSON.parse(t); }catch(e){}
-  try{ return (new Function('return (' + t + ')'))(); }catch(e){}
-  return null;
-}
-function saveFbCfg(){
-  const c = parseCfgText($('#fbcfg').value);
-  const st = $('#fbstatus');
-  if(!c || !c.apiKey){ st.textContent = '⚠️ 看不懂這段設定，請完整複製 { } 內容'; st.style.color='var(--qi)'; return; }
-  if(!c.databaseURL){ st.textContent = '⚠️ 缺少 databaseURL——請先建立 Realtime Database 再複製設定'; st.style.color='var(--qi)'; return; }
-  try{ localStorage.setItem('fs-fbcfg', JSON.stringify(c)); }catch(e){}
-  OL.cfg = c; OL.db = null; OL.sdkReady = false;
-  st.textContent = '✅ 已儲存！可以開始連線了'; st.style.color='var(--jing)';
-  renderOnline();
-}
-function clearFbCfg(){
-  try{ localStorage.removeItem('fs-fbcfg'); }catch(e){}
-  OL.cfg=null; OL.db=null; $('#fbcfg').value=''; $('#fbstatus').textContent='已清除';
-  renderOnline();
-}
-function openFbSetup(){
-  loadFbCfg();
-  $('#fbcfg').value = OL.cfg ? JSON.stringify(OL.cfg, null, 2) : '';
-  $('#fbstatus').textContent = OL.cfg ? '✅ 目前已有設定' : '尚未設定';
-  $('#fbstatus').style.color = OL.cfg ? 'var(--jing)' : 'var(--ink2)';
-  openModal('m-fbsetup');
-}
 function ensureSdk(){
   if(OL.sdkReady) return Promise.resolve();
   if(OL.sdkLoading) return OL.sdkLoading;
@@ -1710,10 +1649,7 @@ function renderOnline(){
     return;
   }
   if(!OL.cfg){
-    A.innerHTML = `<div class="ol-entry">
-      <div class="ol-note">🔌 還沒設定連線後台。只要 10 分鐘建立一個免費的 Firebase 資料庫，全班的裝置就能連線一起玩！</div>
-      <button class="btn primary" style="align-self:center" onclick="openFbSetup()">⚙️ 開始設定連線</button>
-    </div>`;
+    A.innerHTML = `<div class="ol-note">😴 線上房間暫時休息中，請稍後再試——也可以先玩「表演猜猜樂」同樂模式！</div>`;
     return;
   }
   if(!OL.room){
